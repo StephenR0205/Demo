@@ -22,8 +22,8 @@ import java.lang.String;
 @Service
 public class ExecuteTimer {
 
-    String msg1 ="";
-    String pre = "";
+    String msg1 =""; //判断标识
+    String pre = ""; 
     public void executeTimer1(){
         System.out.println("执行前："+msg1);
         String str = cx();
@@ -63,10 +63,10 @@ public class ExecuteTimer {
 
     public String jg(String msg){
         String[] arr1 = msg.split("=");
-        System.out.println("arr1:" + Arrays.toString(arr1));
+      //  System.out.println("arr1:" + Arrays.toString(arr1));
 
         String[] arr2 = arr1[2].split(";");
-        System.out.println("arr2:" + Arrays.toString(arr2));
+    //    System.out.println("arr2:" + Arrays.toString(arr2));
         String v = arr2[0];
         String str = getmsg(v);
         return str;
@@ -74,8 +74,6 @@ public class ExecuteTimer {
 
     public void fs(String text, String token) {
         String url = String.format("https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=%s", token); //wechat  address
-        //  String url = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=EcTcC1_dr_A4fE5utawfjSTDc5E37Pryd3EekcMyt0WrekEGhLx8UbyYQCnruz1cU9q07poVOVNK6ivaaFmZ7AL-oh7foV1LqqNhrlWUN-xztHPVAxLZSy0R5_jzLmu68hOFApuWYDxLL6YcSL-vIQWmcwN-d3uOHD-mlZJv1smu8Bu2kE_CgWvsAuXyiB59uOyw_C7DGS3BB-fMizh9ng";
-
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();// create http  object
 
         System.out.println("String url :" + url);
@@ -86,10 +84,10 @@ public class ExecuteTimer {
         mapson.put("content", text);
         map.put("text", mapson);
         map.put("msgtype", "text");
-        map.put("touser", "RongHaoNan");
-        map.put("agentid", "1000036");
+        map.put("touser", "who");
+        map.put("agentid", "number");
         JSONObject jsonMap = new JSONObject(map);
-        System.out.println("jsonMap:" + jsonMap);
+    //    System.out.println("jsonMap:" + jsonMap);
 
         StringEntity entity = new StringEntity(String.valueOf(jsonMap), Charset.forName("UTF-8"));
         httpPost.setEntity(entity);
@@ -123,7 +121,6 @@ public class ExecuteTimer {
 
     public void fsJC(String text, String token) {
         String url = String.format("https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=%s", token); //wechat  address
-        //  String url = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=EcTcC1_dr_A4fE5utawfjSTDc5E37Pryd3EekcMyt0WrekEGhLx8UbyYQCnruz1cU9q07poVOVNK6ivaaFmZ7AL-oh7foV1LqqNhrlWUN-xztHPVAxLZSy0R5_jzLmu68hOFApuWYDxLL6YcSL-vIQWmcwN-d3uOHD-mlZJv1smu8Bu2kE_CgWvsAuXyiB59uOyw_C7DGS3BB-fMizh9ng";
 
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();// create http  object
 
@@ -135,10 +132,10 @@ public class ExecuteTimer {
         mapson.put("content", text);
         map.put("text", mapson);
         map.put("msgtype", "text");
-        map.put("touser", "RongHaoNan");
-        map.put("agentid", "1000036");
+        map.put("touser", "who");
+        map.put("agentid", "number");
         JSONObject jsonMap = new JSONObject(map);
-        System.out.println("jsonMap:" + jsonMap);
+      //  System.out.println("jsonMap:" + jsonMap);
 
         StringEntity entity = new StringEntity(String.valueOf(jsonMap), Charset.forName("UTF-8"));
         httpPost.setEntity(entity);
@@ -170,7 +167,7 @@ public class ExecuteTimer {
 
     public String cx() {
         String tq = null;
-        String url = "http://d1.weather.com.cn/dingzhi/101180801.html";
+        String url = "http://d1.weather.com.cn/dingzhi/101010100.html";
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         HttpGet httpGet = new HttpGet(url);
         httpGet.setHeader("Referer", "d1.weather.com.cn");
@@ -183,11 +180,11 @@ public class ExecuteTimer {
             HttpEntity responseEntity = response.getEntity();
             if (responseEntity != null) {
                 String msg = EntityUtils.toString(responseEntity);
-                System.out.println("--------------------------------------");
+         //       System.out.println("--------------------------------------");
 
                 String str = new String(msg.getBytes("ISO-8859-1"), "UTF-8");
 
-                System.out.println("str:" + str);
+          //      System.out.println("str:" + str);
                 tq = str;
 
             }
@@ -235,27 +232,28 @@ public class ExecuteTimer {
         return weatherinfo.toString();
     }
 
+    //由于接口中不返回解除预警的信息，所以自己写了一个简单的返回解除预警信息。相关字段只能从预警信息中取，有一定局限性
     private String getjcmsg(String msg) {
 
 
         String jc = null;
         JSONObject result = new JSONObject();
 
-        System.out.println("--------------------------------------");
+    //    System.out.println("--------------------------------------");
 
         String str = null;
 
         System.out.println("str:" + str);
         String[] arr1 = msg.split("=");
-        System.out.println("arr1:" + Arrays.toString(arr1));
+    //    System.out.println("arr1:" + Arrays.toString(arr1));
 
         String[] arr2 = arr1[2].split(";");
-        System.out.println("arr2:" + Arrays.toString(arr2));
+     //   System.out.println("arr2:" + Arrays.toString(arr2));
         String v = arr2[0];
-        System.out.println("v:" + v);
+     //   System.out.println("v:" + v);
         JSONObject jsonObject = JSONObject.parseObject(v);
         JSONArray arr = JSON.parseObject(String.valueOf(jsonObject)).getJSONArray("w");
-
+        //取预警信号的类型和预警级别
         for (int i = 0; i < arr.size(); i++) {
             JSONObject k = arr.getJSONObject(i);
             result.put("xhjb", k.get("w7"));

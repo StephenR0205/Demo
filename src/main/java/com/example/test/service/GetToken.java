@@ -16,9 +16,9 @@ public class GetToken {
 
     public static String token(){
         String token = null;
-       // String url = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=wx9043ec03bf399a54&corpsecret=v39bZPFtzMwFqRiDc-sh0jYpJwHvMfaZAZxuNCyKPLg";
 
-        String url = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=wx9043ec03bf399a54&corpsecret=-noGDp3M0pGdEuyy1udtHsal8Srra9jTM6b8GMF6rC8";
+        String url= "";//获取token得url
+
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         HttpGet httpGet = new HttpGet(url);
         httpGet.setHeader("Content-Type","text/json;charset=UTF-8");

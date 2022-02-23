@@ -13,7 +13,7 @@ public class Timer {
     @Autowired
     private ExecuteTimer executeTimer;
 
-    @Scheduled(cron = "0 */2 * * * ?")
+    @Scheduled(cron = "0 */2 * * * ?") //每2分钟
     public void executeTimer(){
         executeTimer.executeTimer1();
         System.out.println("cron打印时间："+new Date());
