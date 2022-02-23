@@ -1,0 +1,9 @@
+
+Spring:
+  datasource:
+    name:  //数据库名
+    url: jdbc:mysql://
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
